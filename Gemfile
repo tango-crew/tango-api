@@ -5,6 +5,7 @@ gem 'rails',                  '4.2.3'
 gem 'puma',                   '2.14.0'
 gem 'secure_headers',         '2.2.2'
 gem 'pg',                     '0.18.2'
+gem 'active_model_serializers', '~> 0.9.3'
 
 group :production, :staging do
   gem 'rails_12factor',       '0.0.3'
