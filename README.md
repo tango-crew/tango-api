@@ -1,6 +1,6 @@
-# tango-api
+# Tango API
 
-This project is a [Rails](http://rubyonrails.org/) application used to SOMETHING.
+This project is a [Rails](http://rubyonrails.org/) application used as an API to Tango.
 
 ## Dependencies
 
