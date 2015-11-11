@@ -6,6 +6,7 @@ gem 'puma',                   '2.14.0'
 gem 'secure_headers',         '2.2.2'
 gem 'pg',                     '0.18.2'
 gem 'active_model_serializers', '~> 0.9.3'
+gem 'rack-cors',              '~> 0.4.0'
 
 group :production, :staging do
   gem 'rails_12factor',       '0.0.3'

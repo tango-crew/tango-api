@@ -140,6 +140,7 @@ GEM
     rack-canonical-host (0.1.0)
       addressable
       rack (~> 1.0)
+    rack-cors (0.4.0)
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (4.2.3)
@@ -253,6 +254,7 @@ DEPENDENCIES
   puma (= 2.14.0)
   quiet_assets (= 1.1.0)
   rack-canonical-host (= 0.1.0)
+  rack-cors (~> 0.4.0)
   rails (= 4.2.3)
   rails_12factor (= 0.0.3)
   rollbar (= 2.1.1)
