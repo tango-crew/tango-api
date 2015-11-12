@@ -1,1 +1,1 @@
-User.create(name: 'Admin', email: 'admin@tango.com')
+User.find_or_create_by(name: 'Admin', email: 'admin@tango.com')
