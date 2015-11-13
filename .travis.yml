@@ -8,3 +8,8 @@ notifications:
 addons:
   code_climate:
     repo_token: 06cef33f7bbf98f48e94ba79366292bb0ab23babcce28ffc278d164bff41f8c4
+
+  postgresql: "9.4"
+
+services:
+  - postgresql
