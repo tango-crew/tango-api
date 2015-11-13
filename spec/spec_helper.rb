@@ -1,9 +1,13 @@
-if ENV['coverage'] == 'on'
-  require 'simplecov'
-  SimpleCov.start 'rails' do
-    minimum_coverage 100
-  end
+require 'simplecov'
+require 'codeclimate-test-reporter'
+
+SimpleCov.minimum_coverage 100
+
+CodeClimate::TestReporter.configure do |config|
+  config.profile = 'rails'
 end
+
+CodeClimate::TestReporter.start
 
 RSpec.configure do |config|
   config.disable_monkey_patching!
