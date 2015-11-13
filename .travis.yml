@@ -1,0 +1,10 @@
+language: ruby
+bundler_args: --without development production --quiet
+script:
+  - bundle exec rake
+notifications:
+  email:
+    - diego.domingues16@gmail.com, rogerio.alcantara@gmail.com, saulocamposi@gmail.com
+addons:
+  code_climate:
+    repo_token: 06cef33f7bbf98f48e94ba79366292bb0ab23babcce28ffc278d164bff41f8c4
