@@ -1,5 +1,8 @@
 # Tango API
 
+[![Code Climate](https://codeclimate.com/github/craftcode/tango-api/badges/gpa.svg)](https://codeclimate.com/github/craftcode/tango-api)
+[![Test Coverage](https://codeclimate.com/github/craftcode/tango-api/badges/coverage.svg)](https://codeclimate.com/github/craftcode/tango-api/coverage)
+
 This project is a [Rails](http://rubyonrails.org/) application used as an API to Tango.
 
 ## Dependencies
