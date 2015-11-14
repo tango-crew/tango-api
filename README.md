@@ -44,7 +44,3 @@ You can see an example here: http://showterm.io/6a0054fb8b6b53a56ef2c#slow
 
 All commits pushed to branch master all deployed on Heroku. It is did automatically by [Travis CI](https://travis-ci.org/craftcode/tango-api).
 For more details see de [documentation](http://docs.travis-ci.com/user/deployment/heroku/) and the **.travis.yml** file.
-
-## Generated with PAH
-
-Generated with [PAH](https://github.com/Helabs/pah), an open source project created and maintained by [HE:labs](http://helabs.com.br).
