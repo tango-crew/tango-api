@@ -16,10 +16,6 @@ To run this project you need to have:
   * Linux - `$ sudo apt-get install postgresql`
   * Windows - [PostgreSQL for Windows](http://www.postgresql.org/download/windows/)
 
-If you plan to **integrate** this project to Heroku, you'll need:
-
-* [Heroku Toolbelt](https://toolbelt.heroku.com/)
-
 ## Setup the project
 
 1. Install the dependencies above
@@ -47,28 +43,8 @@ You can see an example here: http://showterm.io/6a0054fb8b6b53a56ef2c#slow
 
 :warning: This is the **ONLY RECOMMENDED WAY** to integrate this project, please do not push directly to Heroku.
 
-#### Deploying the project to a single/staging app on Heroku
-
-1. You are working on `master` branch
-2. `$ bundle exec rake integrate` - Deploy everything to your app
-3. Check if the changes are working on Heroku
-
-You can see an example here: http://showterm.io/a4f25718904e532b321ad#slow
-
-#### Deploying the project to production app on Heroku
-
-This is only applicable if you have two apps on Heroku (staging and production).
-
-First, check of your project has the correct configuration from [jumpup-heroku](https://github.com/Helabs/jumpup-heroku#usage).
-
-1. You are working on `master` branch
-2. `$ git checkout production` - Checkout to `production` branch (this branch must be called `production`)
-3. `$ git merge master` - Merge the changes from `master` branch (don't use rebase here)
-4. `$ bundle exec rake integrate:production` - Deploy everything to your production app
-5. `$ git push -u origin production` - Send your changes to `origin` remote and set the upstream
-6. `$ git checkout master` - Checkout to `master` branch (so you don't commit directly on `production` branch)
-
-:warning: All your daily work must be done on the `master` branch (or in a feature branch), never on `production` branch! The only thing you do on `production` is merging the changes from `master` and deploying to Heroku.
+All commits pushed to branch master all deployed on Heroku. It is did automatically by [Travis CI](https://travis-ci.org/craftcode/tango-api).
+For more details see de [documentation](http://docs.travis-ci.com/user/deployment/heroku/) and the **.travis.yml** file.
 
 ## Generated with PAH
 
