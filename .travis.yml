@@ -1,17 +1,25 @@
 language: ruby
-bundler_args: --without development production --quiet
+bundler_args: "--without development production --quiet"
 before_script:
-  - psql -c 'create database "tango-api_test";' -U postgres
+- psql -c 'create database "tango-api_test";' -U postgres
 script:
-  - bundle exec rake
+- bundle exec rake
 notifications:
   email:
-    - diego.domingues16@gmail.com, rogerio.alcantara@gmail.com, saulocamposi@gmail.com
+  - diego.domingues16@gmail.com, rogerio.alcantara@gmail.com, saulocamposi@gmail.com
 addons:
   code_climate:
     repo_token: 06cef33f7bbf98f48e94ba79366292bb0ab23babcce28ffc278d164bff41f8c4
-
-  postgresql: "9.4"
-
+  postgresql: '9.4'
 services:
-  - postgresql
+- postgresql
+deploy:
+  skip_cleanup: true
+  provider: heroku
+  api_key:
+    secure: bVDz8r3WS+xbpS3QROWrnjINPSzpKrvzlV/AkC8zo3tKFuYLg+pje2z1wB1NFHj4FJ3z0hcotNnMOy4YoQzv2No7b5EOPjexrzhfA/Kk/sY2YbGjM1xh0bawmKKgzLwVbE7ZMuKjGSS2wEWA3NqMS5k+APkoLxT1yZZ26NN1UiVbiLB0DqMfcv12VHHDDZaC9WadoyuV93b1dRKv/brG7gtbkuJT/a7ZE7+Rg3+kECoWqKEFC+HDVEcI6lLKGvIowSTwaXRx3bTEaH1iIuH3gc+zWGMSA9hU9YZJTx6T+6ePQceEEx5/SET5yyWEEv26s+FMMTpuapDNPnO49/qane31dtfezc2h0pkSfpKf9WRTILe5BexOIlU+KUn8YGiFh4ZhWtWNxiH3sUMT/DbxvINldCOmfs9vys0kk/xklgjGFJK/snE5u2AjTOYahnuPYXnNoiwL4Zb+J4qxtzy+tkAuAGLhtR63ned9rLkaZos9iwAGqruhPjPl+MVDdm6M6nwVySPtFCn4r2Jfg0MxIa94xeckwcp4GfMZNvIkYC9I+o5WBwgwp4kWZijqfP0XeoAN1+P1+ojo7+GsDc9ovLe8mnGzFAjCakTjA31d8o4NPTHUG54mhj1C9ajOAjMFdInOjAXXGk7VfZRGZGm0edRgJp53Rc8CFCsipdbpY5s=
+  app: tango-api
+  on: master
+  run:
+    - "rake db:migrate"
+    - "rake db:seed"
