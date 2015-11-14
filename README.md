@@ -14,7 +14,6 @@ To run this project you need to have:
 * [PostgreSQL](http://www.postgresql.org/)
   * OSX - [Postgress.app](http://postgresapp.com/)
   * Linux - `$ sudo apt-get install postgresql`
-  * Windows - [PostgreSQL for Windows](http://www.postgresql.org/download/windows/)
 
 ## Setup the project
 
