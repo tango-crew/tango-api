@@ -8,6 +8,8 @@ script:
 notifications:
   email:
   - diego.domingues16@gmail.com, rogerio.alcantara@gmail.com, saulocamposi@gmail.com
+  slack:
+    secure: 1Gp6/8SAf+QoRUk5dCg2upwCi7EPAk0vlCVtWun3m5mrok8SumLAa0Dn1Iw0tTx4paQtTskMaa6fk4+S159jKh5VsUtmVuGUB3rWxbYIZlwk6R0u6bevWrRWwXtfexglnyLLoI45qC+iXdaidsweh6hgXMcNDhil7mbpykg8qQlH1Dq1tgPhvNkWEz7QsHYY6alx+O9XiNlbMe1kX7yQ49gvUDw51rDxT770tXnOZAPhWVaRRVtWf/OiLEdj2Bi38W3it3cQ4P9Ay6z2kI04eJcNy3B/EPeQ6KrdPc22iuAe17eoJ2a1OBttmK9sNR+LiI8PrRdyNzIbavMmIHJwsaD82vMhBtmKqMlDp/vFCW5X88MfWnhJXQRQQaEmsX9DR+cw7LEdaB9XywnIeUlyzy/lHxX8jSRlfMBGrbMuFzPe4UVvwkb5x62e+eZvZs2WMfkINN+oeWbUhQXg6Njj3DmQYa36oTQb0jkGJKit5meGq8Aykjcbk/VQrK6ZRg27Bi2jaK0VuCUCVfJibl3yJDeA6ZXH5xUhXh1DqNcQkjUFsad0TsSFR5d6hZrMiEYTJRBrifc6Xz+dbufC3wALpgXzc0KLBpOZJ2ovw1SDwFeLd9q4kxJzwq/baCJ10StCpPykSOwp5tZRE8drq0eoZdXf80Xk2+Yc0wG1Rm6GSos=
 addons:
   code_climate:
     repo_token: 06cef33f7bbf98f48e94ba79366292bb0ab23babcce28ffc278d164bff41f8c4
@@ -22,5 +24,5 @@ deploy:
   app: tango-api
   on: master
   run:
-    - "rake db:migrate"
-    - "rake db:seed"
+  - rake db:migrate
+  - rake db:seed
