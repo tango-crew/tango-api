@@ -1,4 +1,5 @@
 language: ruby
+cache: bundler
 bundler_args: "--without development production --quiet"
 before_script:
 - psql -c 'create database "tango-api_test";' -U postgres
