@@ -7,5 +7,7 @@ FactoryGirl.define do
     integration_type 1
     birthday '2015-11-05'
     bio 'My bio'
+    password { SecureRandom.urlsafe_base64 }
+    password_confirmation { password }
   end
 end

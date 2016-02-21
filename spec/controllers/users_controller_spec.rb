@@ -3,7 +3,8 @@ require 'rails_helper'
 RSpec.describe UsersController do
   let(:valid_attributes) { attributes_for(:user) }
   let(:invalid_attributes) { {name: nil, email: nil} }
-  let(:permitted_attributes) { [:name, :email, :integration_id, :integration_type, :birthday, :bio] }
+  let(:permitted_attributes) { [:name, :email, :integration_id, :integration_type, :birthday, :bio, :password, :password_confirmation] }
+  let(:returned_attributes) { permitted_attributes.reject {|a| a.to_s.match /password/ } }
   let!(:user) {create(:user)}
 
   before do
@@ -62,7 +63,7 @@ RSpec.describe UsersController do
       it 'renders the created user' do
         do_action
 
-        permitted_attributes.each do |key|
+        returned_attributes.each do |key|
           expect(json_response[:user][key]).to eq(valid_attributes[key])
         end
       end
@@ -107,7 +108,7 @@ RSpec.describe UsersController do
       end
 
       it 'renders the updated user' do
-        permitted_attributes.each do |key|
+        returned_attributes.each do |key|
           expect(json_response[:user][key]).to eq(new_attributes[key])
         end
       end
