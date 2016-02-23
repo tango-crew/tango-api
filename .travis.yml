@@ -26,5 +26,4 @@ deploy:
   on: master
   run:
   - rake db:migrate
-  - rake db:seed
   - restart
