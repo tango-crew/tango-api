@@ -3,6 +3,7 @@ cache: bundler
 bundler_args: "--without development production --quiet"
 before_script:
 - psql -c 'create database "tango-api_test";' -U postgres
+- bundle exec rake db:migrate
 script:
 - bundle exec rake
 notifications:
