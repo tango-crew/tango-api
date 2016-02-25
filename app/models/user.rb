@@ -11,6 +11,11 @@ class User < ActiveRecord::Base
 
   enum integration: %w(facebook google+ instagram)
 
+  def self.authenticate!(email, password)
+    find_by!(email: email)&.
+        authenticate(password)
+  end
+
   private
   def generate_token
     self.token = SecureRandom.urlsafe_base64(24)
