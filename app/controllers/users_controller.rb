@@ -42,6 +42,11 @@ class UsersController < ApplicationController
     head :no_content
   end
 
+  def sign_in
+    @user = User.authenticate!(user_params[:email], user_params[:password])
+    render json: @user
+  end
+
   private
     def set_user
       @user = User.find(params[:id])

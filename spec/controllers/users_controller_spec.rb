@@ -2,10 +2,10 @@ require 'rails_helper'
 
 RSpec.describe UsersController do
   let(:valid_attributes) { attributes_for(:user) }
-  let(:invalid_attributes) { {name: nil, email: nil} }
+  let(:invalid_attributes) { { name: nil, email: nil } }
   let(:permitted_attributes) { [:name, :email, :integration_id, :integration_type, :birthday, :bio, :password, :password_confirmation] }
-  let(:returned_attributes) { permitted_attributes.reject {|a| a.to_s.match /password/ } }
-  let!(:user) {create(:user)}
+  let(:returned_attributes) { permitted_attributes.reject { |a| a.to_s.match /password/ } }
+  let!(:user) { create(:user) }
 
   before do
     stub_authentication!
@@ -21,7 +21,7 @@ RSpec.describe UsersController do
 
   describe 'GET #show' do
     it 'assigns the requested user as @user' do
-      api_get :show, {id: user.to_param}
+      api_get :show, { id: user.to_param }
       expect(assigns(:user)).to eq(user)
     end
   end
@@ -35,7 +35,7 @@ RSpec.describe UsersController do
 
   describe 'GET #edit' do
     it 'assigns the requested user as @user' do
-      api_get :edit, {id: user.to_param}
+      api_get :edit, { id: user.to_param }
       expect(assigns(:user)).to eq(user)
     end
   end
@@ -44,7 +44,7 @@ RSpec.describe UsersController do
     context 'with valid params' do
 
       def do_action
-        api_post :create, {user: valid_attributes}
+        api_post :create, { user: valid_attributes }
       end
 
       it 'creates a new User' do
@@ -71,7 +71,7 @@ RSpec.describe UsersController do
 
     context 'with invalid params' do
       before {
-        api_post :create, {user: invalid_attributes}
+        api_post :create, { user: invalid_attributes }
       }
 
       it 'assigns a newly created but unsaved user as @user' do
@@ -92,11 +92,11 @@ RSpec.describe UsersController do
     context 'with valid params' do
       let(:new_attributes) {
         valid_attributes
-          .merge(name: 'Diego Domingues')
+            .merge(name: 'Diego Domingues')
       }
 
       before {
-        api_put :update, {id: user.to_param, user: new_attributes}
+        api_put :update, { id: user.to_param, user: new_attributes }
       }
 
       it 'updates the requested user' do
@@ -115,7 +115,7 @@ RSpec.describe UsersController do
     end
 
     context 'with invalid params' do
-      before { api_put :update, {id: user.to_param, user: invalid_attributes} }
+      before { api_put :update, { id: user.to_param, user: invalid_attributes } }
 
       it 'assigns the user as @user' do
         expect(assigns(:user)).to eq(user)
@@ -133,7 +133,7 @@ RSpec.describe UsersController do
 
   describe 'DELETE #destroy' do
     def do_action
-      api_delete :destroy, {id: user.to_param}
+      api_delete :destroy, { id: user.to_param }
     end
 
     it 'destroys the requested user' do
@@ -146,6 +146,30 @@ RSpec.describe UsersController do
       do_action
 
       expect(response).to have_http_status(:no_content)
+    end
+  end
+
+  describe 'POST #sign_in' do
+    context 'when the params are correct' do
+      let!(:user) { create(:user, email: 'u@g.com', password: '123456') }
+
+      it 'returns the user' do
+        allow(User).to receive(:authenticate!).with('u@g.com', '123456').and_return(user)
+
+        post :sign_in, user: { email: user.email, password: '123456' }
+
+        expect(json_response[:user][:email]).to eq(user.email)
+      end
+    end
+
+    context 'when the params are incorrect' do
+      it 'returns the http status not_found' do
+        allow(User).to receive(:authenticate!).with('u@g.com', '123456').and_raise(ActiveRecord::RecordNotFound)
+
+        post :sign_in, user: { email: 'u@g.com', password: '123456' }
+
+        expect(response).to have_http_status(:not_found)
+      end
     end
   end
 end
