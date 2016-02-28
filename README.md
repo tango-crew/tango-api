@@ -44,8 +44,8 @@ You can see an example here: http://showterm.io/6a0054fb8b6b53a56ef2c#slow
 
 :warning: This is the **ONLY RECOMMENDED WAY** to integrate this project, please do not push directly to Heroku.
 
-All commits pushed to branch master all deployed on Heroku. It is did automatically by [Travis CI](https://travis-ci.org/craftcode/tango-api).
-For more details see de [documentation](http://docs.travis-ci.com/user/deployment/heroku/) and the **.travis.yml** file.
+All commits pushed to branch master will be deployed on the Heroku. It is did automatically by [Travis CI](https://travis-ci.org/craftcode/tango-api).
+For more details see the [documentation](http://docs.travis-ci.com/user/deployment/heroku/) and the **.travis.yml** file.
 
 ## How to contribute :heart_eyes:
 
