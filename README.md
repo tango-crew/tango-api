@@ -12,7 +12,7 @@ This project is a [Rails](http://rubyonrails.org/) application used as an API to
 
 To run this project you need to have:
 
-* Ruby 2.2.2 - You can use [RVM](http://rvm.io)
+* Ruby 2.3.0 - You can use [RVM](http://rvm.io)
 * [PostgreSQL](http://www.postgresql.org/)
   * OSX - [Postgress.app](http://postgresapp.com/)
   * Linux - `$ sudo apt-get install postgresql`
