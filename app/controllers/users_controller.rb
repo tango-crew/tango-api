@@ -11,14 +11,6 @@ class UsersController < ApplicationController
     render json: @user
   end
 
-  def new
-    render json: {permitted_attributes: user_attributes}
-  end
-
-  def edit
-    new
-  end
-
   def create
     @user = User.new(user_params)
 

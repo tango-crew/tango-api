@@ -1,28 +1,30 @@
 source 'https://rubygems.org'
 ruby '2.3.0'
 
-gem 'rails',                  '~> 4.2.5'
-gem 'puma',                   '~> 2.16'
-gem 'secure_headers',         '2.2.2'
+gem 'rails', '>= 5.0.0.beta3', '< 5.1'
+gem 'puma',                   '~> 3.1'
+gem 'secure_headers',         '~> 3.0'
 gem 'pg',                     '~> 0.18.4'
-gem 'active_model_serializers', '~> 0.9.4'
+gem 'active_model_serializers', '~> 0.10.0.rc4'
 gem 'rack-cors',              '~> 0.4.0'
 gem 'bcrypt',                 '~> 3.1'
 
+# Remove it when the rspec include this fix: https://github.com/rspec/rspec-core/pull/2197
+gem 'rake', '< 11.0'
+
 group :production, :staging do
   gem 'rails_12factor',       '0.0.3'
-  gem 'rack-canonical-host',  '0.1.0'
   gem 'newrelic_rpm',         '~> 3.15.0'
   gem 'rollbar',              '~> 2.8'
-  gem 'librato-rails',        '~> 1.1'
+  gem 'librato-rails',        '~> 1.2'
 end
 
 group :development do
   gem 'foreman',              '0.78.0'
-  gem 'better_errors',        '2.1.1'
   gem 'binding_of_caller',    '0.7.2'
   gem 'letter_opener',        '1.4.1'
   gem 'bullet',               '~> 5.0'
+  gem 'listen',               '~> 3.0.5'
 end
 
 group :test do
@@ -31,15 +33,21 @@ group :test do
   gem 'email_spec',           '1.6.0'
   gem 'database_cleaner',     '1.4.1'
   gem 'codeclimate-test-reporter', require: false
+  gem 'rspec-rails',           '>= 3.5.0.beta1'
+  gem 'rails-controller-testing', '~> 0.1.1'
 end
 
 group :development, :test do
-  gem 'rspec-rails',           '~> 3.4.2'
   gem 'factory_girl_rails',    '~> 4.6'
   gem 'pry-rails',             '0.3.4'
   gem 'dotenv-rails',          '1.0.2'
   gem 'awesome_print',         '1.6.1'
   gem 'spring-commands-rspec', '1.0.4'
   gem 'byebug',                '5.0.0'
-  gem 'spring',                '1.3.6'
+  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  gem 'spring'
+  gem 'spring-watcher-listen', '~> 2.0.0'
 end
+
+# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

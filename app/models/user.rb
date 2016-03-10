@@ -1,4 +1,4 @@
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   validates_presence_of :name, :email
   validates_uniqueness_of :email
   validates :integration_type, inclusion: { in: 1..3 }, allow_blank: true

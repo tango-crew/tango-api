@@ -7,13 +7,11 @@ RSpec.describe UsersController do
   let(:returned_attributes) { permitted_attributes.reject { |a| a.to_s.match /password/ } }
   let!(:user) { create(:user) }
 
-  before do
-    stub_authentication!
-  end
+  before { stub_authentication! }
 
   describe 'GET #index' do
     it 'assigns all users as @users' do
-      api_get :index, {}
+      get :index
 
       expect(assigns(:users)).to eq([user])
     end
@@ -21,30 +19,16 @@ RSpec.describe UsersController do
 
   describe 'GET #show' do
     it 'assigns the requested user as @user' do
-      api_get :show, { id: user.to_param }
-      expect(assigns(:user)).to eq(user)
-    end
-  end
+      get :show, params: { id: user.to_param }
 
-  describe 'GET #new' do
-    it 'assigns a new user as @user' do
-      api_get :new, {}
-      expect(json_response[:permitted_attributes]).to eq(permitted_attributes.map(&:to_s))
-    end
-  end
-
-  describe 'GET #edit' do
-    it 'assigns the requested user as @user' do
-      api_get :edit, { id: user.to_param }
       expect(assigns(:user)).to eq(user)
     end
   end
 
   describe 'POST #create' do
     context 'with valid params' do
-
       def do_action
-        api_post :create, { user: valid_attributes }
+        post :create, params: { user: valid_attributes }
       end
 
       it 'creates a new User' do
@@ -64,15 +48,13 @@ RSpec.describe UsersController do
         do_action
 
         returned_attributes.each do |key|
-          expect(json_response[:user][key]).to eq(valid_attributes[key])
+          expect(json_response[key]).to eq(valid_attributes[key])
         end
       end
     end
 
     context 'with invalid params' do
-      before {
-        api_post :create, { user: invalid_attributes }
-      }
+      before { post :create, params: { user: invalid_attributes } }
 
       it 'assigns a newly created but unsaved user as @user' do
         expect(assigns(:user)).to be_a_new(User)
@@ -90,14 +72,12 @@ RSpec.describe UsersController do
 
   describe 'PUT #update' do
     context 'with valid params' do
-      let(:new_attributes) {
+      let(:new_attributes) do
         valid_attributes
-            .merge(name: 'Diego Domingues')
-      }
+          .merge(name: 'Diego Domingues')
+      end
 
-      before {
-        api_put :update, { id: user.to_param, user: new_attributes }
-      }
+      before { put :update, params: { id: user.to_param, user: new_attributes } }
 
       it 'updates the requested user' do
         expect(user.reload.name).to eq(new_attributes[:name])
@@ -109,13 +89,13 @@ RSpec.describe UsersController do
 
       it 'renders the updated user' do
         returned_attributes.each do |key|
-          expect(json_response[:user][key]).to eq(new_attributes[key])
+          expect(json_response[key]).to eq(new_attributes[key])
         end
       end
     end
 
     context 'with invalid params' do
-      before { api_put :update, { id: user.to_param, user: invalid_attributes } }
+      before { put :update, params: { id: user.to_param, user: invalid_attributes } }
 
       it 'assigns the user as @user' do
         expect(assigns(:user)).to eq(user)
@@ -133,7 +113,7 @@ RSpec.describe UsersController do
 
   describe 'DELETE #destroy' do
     def do_action
-      api_delete :destroy, { id: user.to_param }
+      delete :destroy, params: { id: user.to_param }
     end
 
     it 'destroys the requested user' do
@@ -156,9 +136,9 @@ RSpec.describe UsersController do
       it 'returns the user' do
         allow(User).to receive(:authenticate!).with('u@g.com', '123456').and_return(user)
 
-        post :sign_in, user: { email: user.email, password: '123456' }
+        post :sign_in, params: { user: { email: user.email, password: '123456' } }
 
-        expect(json_response[:user][:email]).to eq(user.email)
+        expect(json_response[:email]).to eq(user.email)
       end
     end
 
@@ -166,7 +146,7 @@ RSpec.describe UsersController do
       it 'returns the http status not_found' do
         allow(User).to receive(:authenticate!).with('u@g.com', '123456').and_raise(ActiveRecord::RecordNotFound)
 
-        post :sign_in, user: { email: 'u@g.com', password: '123456' }
+        post :sign_in, params: { user: { email: 'u@g.com', password: '123456' } }
 
         expect(response).to have_http_status(:not_found)
       end

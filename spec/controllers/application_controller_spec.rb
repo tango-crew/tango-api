@@ -2,26 +2,23 @@ require 'rails_helper'
 
 RSpec.describe ApplicationController do
   controller(ApplicationController) do
-    def index
-      render json: {'users' => []}.to_json
-    end
+    def index; end
   end
 
-  before do
-    @routes = ActionDispatch::Routing::RouteSet.new.tap do |r|
-      r.draw { get 'index', to: 'anonymous#index' }
-    end
-  end
+  context 'without an API token' do
+    it 'returns an unauthorized status' do
+      get :index
 
-  context 'cannot make a request to the API' do
-    it 'without an API token' do
-      api_get :index, {}
       expect(response).to have_http_status(:unauthorized)
     end
+  end
 
-    it 'with an invalid API Token' do
-      request.headers['X-Tango-Api-Token'] = 'fake_token'
-      api_get :index, {}
+  context 'with an invalid API Token' do
+    before { request.headers['X-Tango-Api-Token'] = 'fake_token' }
+
+    it 'returns a not_found status' do
+      get :index
+
       expect(response).to have_http_status(:not_found)
     end
   end

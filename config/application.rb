@@ -8,7 +8,8 @@ require "active_record/railtie"
 require "action_controller/railtie"
 require "action_mailer/railtie"
 require "action_view/railtie"
-require "sprockets/railtie"
+# require "action_cable/engine"
+# require "sprockets/railtie"
 # require "rails/test_unit/railtie"
 
 # Require the gems listed in Gemfile, including any gems
@@ -18,18 +19,18 @@ Bundler.require(*Rails.groups)
 module TangoApi
   class Application < Rails::Application
     # Do not generate specs for views and requests. Also, do not generate assets.
-    config.generators do |g|
-      g.helper false
-      g.view_specs false
-      g.assets false
-      g.integration_tool false
-    end
+    # config.generators do |g|
+    #   g.helper false
+    #   g.view_specs false
+    #   g.assets false
+    #   g.integration_tool false
+    # end
     config.app_generators do |g|
       g.test_framework :rspec
     end
 
     # Prevent initializing your application and connect to the database on assets precompile.
-    config.assets.initialize_on_precompile = false
+    # config.assets.initialize_on_precompile = false
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
@@ -50,20 +51,11 @@ module TangoApi
 
     config.middleware.use Rack::Deflater
 
-    # Do not swallow errors in after_commit/after_rollback callbacks.
-    config.active_record.raise_in_transactional_callbacks = true
-
     config.autoload_paths << Rails.root.join('lib')
 
-    config.middleware.insert_before 0, 'Rack::Cors' do
-      allow do
-        origins '*'
-
-        resource '*',
-                 headers: :any,
-                 methods: [:get, :post, :delete, :put, :patch, :options, :head],
-                 max_age: 0
-      end
-    end
+    # Only loads a smaller set of middleware suitable for API only apps.
+    # Middleware like session, flash, cookies can be added back manually.
+    # Skip views, helpers and assets when generating a new resource.
+    config.api_only = true
   end
 end
