@@ -24,10 +24,6 @@ To run this project you need to have:
 4. `$ bin/setup` - Run the setup script
 5. `$ bin/rspec` - Run the specs to see if everything is working fine
 
-If everything goes OK, you can now run the project!
-
-You can see an example here: http://showterm.io/6a0054fb8b6b53a56ef2c#slow
-
 ## Running the project
 
 1. `$ bundle exec foreman start` - Opens the server
