@@ -1,10 +1,9 @@
 # Tango API
 
 [![Build Status](https://travis-ci.org/tango-crew/tango-api.svg?branch=master)](https://travis-ci.org/tango-crew/tango-api)
-[![Code Climate](https://codeclimate.com/github/craftcode/tango-api/badges/gpa.svg)](https://codeclimate.com/github/craftcode/tango-api)
-[![Test Coverage](https://codeclimate.com/github/craftcode/tango-api/badges/coverage.svg)](https://codeclimate.com/github/craftcode/tango-api/coverage)
-[![Dependency Status](https://gemnasium.com/craftcode/tango-api.svg)](https://gemnasium.com/craftcode/tango-api)
-
+[![Code Climate](https://codeclimate.com/github/tango-crew/tango-api/badges/gpa.svg)](https://codeclimate.com/github/tango-crew/tango-api)
+[![Test Coverage](https://codeclimate.com/github/tango-crew/tango-api/badges/coverage.svg)](https://codeclimate.com/github/tango-crew/tango-api/coverage)
+[![Dependency Status](https://gemnasium.com/tango-crew/tango-api.svg)](https://gemnasium.com/tango-crew/tango-api)
 
 This project is a [Rails](http://rubyonrails.org/) application used as an API to Tango.
 
@@ -44,7 +43,7 @@ You can see an example here: http://showterm.io/6a0054fb8b6b53a56ef2c#slow
 
 :warning: This is the **ONLY RECOMMENDED WAY** to integrate this project, please do not push directly to Heroku.
 
-All commits pushed to branch master will be deployed on the Heroku. It is did automatically by [Travis CI](https://travis-ci.org/craftcode/tango-api).
+All commits pushed to branch master will be deployed on the Heroku. It is did automatically by [Travis CI](https://travis-ci.org/tango-crew/tango-api).
 For more details see the [documentation](http://docs.travis-ci.com/user/deployment/heroku/) and the **.travis.yml** file.
 
 ## How to contribute :heart_eyes:
