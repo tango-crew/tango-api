@@ -18,8 +18,8 @@ addons:
 services:
 - postgresql
 branches:
-  except:
-    - master
+  only:
+    - v0.0.1
 deploy:
   skip_cleanup: true
   provider: heroku

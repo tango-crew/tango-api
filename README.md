@@ -33,7 +33,7 @@ To run this project you need to have:
 
 `$ bundle exec rake spec` to run the specs.
 
-`$ coverage=on bundle exec rake spec` to generate the coverage report then open the file `coverage/index.html` on your browser.
+The coverage reports are generated on the `coverage` folder.
 
 ## Deploying the project to Heroku
 
