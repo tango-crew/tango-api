@@ -1,12 +1,12 @@
 swagger: "2.0"
 info:
-  version: 1.0.0
+  version: 0.0.1
   title: tango-api
   description: Tango API
   termsOfService: http://swagger.io/terms/
   contact:
     name: Tango API Team
-    email: diego.domingues16@gmail.com
+    email: support@tango.com
     url: https://github.com/tango-crew/tango-api
   license:
     name: MIT
@@ -19,6 +19,8 @@ consumes:
   - application/json
 produces:
   - application/json
+security:
+  - tangoApiKey: []
 paths:
   /users:
     get:
@@ -34,7 +36,7 @@ paths:
     post:
       description: Creates a new User in the app. Duplicates are not allowed
       parameters:
-        - name: user
+        - name: body
           in: body
           description: User to add to the store
           required: true
@@ -62,8 +64,7 @@ paths:
           schema:
             $ref: '#/definitions/User'
     delete:
-      description: deletes a single pet based on the ID supplied
-      operationId: deletePet
+      description: deletes a User based on the ID supplied
       parameters:
         - name: id
           in: path
@@ -74,13 +75,33 @@ paths:
       responses:
         204:
           description: user deleted
+  /users/sign_in:
+    post:
+      description: Try sign in the user by e-mail and login
+      parameters:
+        - name: body
+          in: body
+          description: User info
+          required: true
+          schema:
+            $ref: '#/definitions/Auth'
+      responses:
+        200:
+          description: User
+          schema:
+            $ref: '#/definitions/User'
+securityDefinitions:
+  tangoApiKey:
+    type: apiKey
+    in: header
+    name: X-Tango-Api-Token
 definitions:
   User:
     type: object
-
     properties:
       id:
         type: integer
+        format: int64
         description: Unique identifier representing a specific user.
       name:
         type: string
@@ -96,7 +117,7 @@ definitions:
         description: An integration Id.
       birthday:
         type: string
-        format: date
+        format: date-time
         description: User's birthday
       bio:
         type: string
@@ -105,8 +126,9 @@ definitions:
     required:
       - name
       - email
-      - token
       - bio
+      - password
+      - password_confirmation
     properties:
       name:
         type: string
@@ -118,6 +140,20 @@ definitions:
         type: integer
       birthday:
         type: string
-        format: date
+        format: date-time
       bio:
         type: string
+      password:
+        type: string
+        format: password
+      password_confirmation:
+        type: string
+        format: password
+  Auth:
+    type: object
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+        format: password
