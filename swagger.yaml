@@ -1,0 +1,159 @@
+swagger: "2.0"
+info:
+  version: 0.0.1
+  title: tango-api
+  description: Tango API
+  termsOfService: http://swagger.io/terms/
+  contact:
+    name: Tango API Team
+    email: support@tango.com
+    url: https://github.com/tango-crew/tango-api
+  license:
+    name: MIT
+    url: http://github.com/gruntjs/grunt/blob/master/LICENSE-MIT
+host: tango-api.herokuapp.com
+basePath: /
+schemes:
+  - http
+consumes:
+  - application/json
+produces:
+  - application/json
+security:
+  - tangoApiKey: []
+paths:
+  /users:
+    get:
+      description: |
+        Returns all system's users
+      responses:
+        200:
+          description: user response
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/User'
+    post:
+      description: Creates a new User in the app. Duplicates are not allowed
+      parameters:
+        - name: user
+          in: body
+          description: User to add to the store
+          required: true
+          schema:
+            $ref: '#/definitions/NewUser'
+      responses:
+        200:
+          description: user response
+          schema:
+            $ref: '#/definitions/User'
+  /users/{id}:
+    get:
+      description: Returns a user based on a single ID
+      operationId: find user by id
+      parameters:
+        - name: id
+          in: path
+          description: ID of user to fetch
+          required: true
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: user response
+          schema:
+            $ref: '#/definitions/User'
+    delete:
+      description: deletes a User based on the ID supplied
+      parameters:
+        - name: id
+          in: path
+          description: ID of pet to delete
+          required: true
+          type: integer
+          format: int64
+      responses:
+        204:
+          description: user deleted
+  /users/sign_in:
+    post:
+      description: Try sign in the user by e-mail and login
+      parameters:
+        - name: user
+          in: body
+          description: User info
+          required: true
+          schema:
+            $ref: '#/definitions/Auth'
+      responses:
+        200:
+          description: User
+          schema:
+            $ref: '#/definitions/User'
+securityDefinitions:
+  tangoApiKey:
+    type: apiKey
+    in: header
+    name: X-Tango-Api-Token
+definitions:
+  User:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+        description: Unique identifier representing a specific user.
+      name:
+        type: string
+        description: User's name.
+      email:
+        type: string
+        description: User's email.
+      token:
+        type: string
+        description: Auth token.
+      integration_id:
+        type: integer
+        description: An integration Id.
+      birthday:
+        type: string
+        format: date-time
+        description: User's birthday
+      bio:
+        type: string
+        description: User's resumed bio.
+  NewUser:
+    required:
+      - name
+      - email
+      - bio
+      - password
+      - password_confirmation
+    properties:
+      name:
+        type: string
+      email:
+        type: string
+      token:
+        type: string
+      integration_id:
+        type: integer
+      birthday:
+        type: string
+        format: date-time
+      bio:
+        type: string
+      password:
+        type: string
+        format: password
+      password_confirmation:
+        type: string
+        format: password
+  Auth:
+    type: object
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+        format: password
