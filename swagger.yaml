@@ -36,7 +36,7 @@ paths:
     post:
       description: Creates a new User in the app. Duplicates are not allowed
       parameters:
-        - name: user
+        - name: body
           in: body
           description: User to add to the store
           required: true
@@ -79,7 +79,7 @@ paths:
     post:
       description: Try sign in the user by e-mail and login
       parameters:
-        - name: user
+        - name: body
           in: body
           description: User info
           required: true
@@ -122,6 +122,19 @@ definitions:
       bio:
         type: string
         description: User's resumed bio.
+      profile_image_id:
+        type: string
+        description: User's profile image id.
+      profile_image_filename:
+        type: string
+        description: User's profile image filename.
+      profile_image_content_type:
+        type: string
+        description: User's profile image content type.
+      profile_image_size:
+        type: integer
+        description: User's profile image size.
+
   NewUser:
     required:
       - name
@@ -149,6 +162,8 @@ definitions:
       password_confirmation:
         type: string
         format: password
+      remote_profile_image_url:
+        type: string
   Auth:
     type: object
     properties:
