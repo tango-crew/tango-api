@@ -7,9 +7,11 @@ class User < ApplicationRecord
 
   has_secure_password validations: false
 
-  before_create :generate_token
+  attachment :profile_image, type: :image
 
   enum integration: %w(facebook google+ instagram)
+
+  before_create :generate_token
 
   def self.authenticate!(email, password)
     find_by!(email: email)&.

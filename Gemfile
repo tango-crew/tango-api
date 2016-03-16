@@ -8,15 +8,20 @@ gem 'pg',                     '~> 0.18.4'
 gem 'active_model_serializers', '~> 0.10.0.rc4'
 gem 'rack-cors',              '~> 0.4.0'
 gem 'bcrypt',                 '~> 3.1'
+gem 'sinatra',                github: 'sinatra/sinatra', branch: 'master'
+gem 'refile',                 github: 'ddomingues/refile', branch: 'rails-5', require: 'refile/rails'
+# gem 'refile',                 '~> 0.6.2'
+gem 'refile-mini_magick',     '~> 0.2.0'
 
 # Remove it when the rspec include this fix: https://github.com/rspec/rspec-core/pull/2197
-gem 'rake', '< 11.0'
+gem 'rake'
 
 group :production, :staging do
   gem 'rails_12factor',       '0.0.3'
   gem 'newrelic_rpm',         '~> 3.15.0'
   gem 'rollbar',              '~> 2.8'
   gem 'librato-rails',        '~> 1.2'
+  gem 'refile-s3',            '~> 0.2.0'
 end
 
 group :development do
