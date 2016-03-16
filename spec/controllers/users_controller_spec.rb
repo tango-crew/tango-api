@@ -1,10 +1,16 @@
 require 'rails_helper'
 
 RSpec.describe UsersController do
-  let(:valid_attributes) { attributes_for(:user) }
+  let(:valid_attributes) { attributes_for(:user).except(:token) }
   let(:invalid_attributes) { { name: nil, email: nil } }
-  let(:permitted_attributes) { [:name, :email, :integration_id, :integration_type, :birthday, :bio, :password, :password_confirmation] }
-  let(:returned_attributes) { permitted_attributes.reject { |a| a.to_s.match /password/ } }
+  let(:returned_attributes) {
+    [:id, :name, :email, :token, :integration_id,
+     :integration_type, :birthday, :bio,
+     :profile_image_id,
+     :profile_image_filename,
+     :profile_image_content_type,
+     :profile_image_size]
+  }
   let!(:user) { create(:user) }
 
   before { stub_authentication! }
@@ -47,9 +53,13 @@ RSpec.describe UsersController do
       it 'renders the created user' do
         do_action
 
-        returned_attributes.each do |key|
-          expect(json_response[key]).to eq(valid_attributes[key])
-        end
+        expect(json_response[:name]).to eq(valid_attributes[:name])
+        expect(json_response[:email]).to eq(valid_attributes[:email])
+        expect(json_response[:integration_id]).to eq(valid_attributes[:integration_id])
+        expect(json_response[:integration_type]).to eq(valid_attributes[:integration_type])
+        expect(json_response[:birthday]).to eq(valid_attributes[:birthday])
+        expect(json_response[:bio]).to eq(valid_attributes[:bio])
+        expect(json_response).to include(*returned_attributes)
       end
     end
 
@@ -88,9 +98,13 @@ RSpec.describe UsersController do
       end
 
       it 'renders the updated user' do
-        returned_attributes.each do |key|
-          expect(json_response[key]).to eq(new_attributes[key])
-        end
+        expect(json_response[:name]).to eq(new_attributes[:name])
+        expect(json_response[:email]).to eq(new_attributes[:email])
+        expect(json_response[:integration_id]).to eq(new_attributes[:integration_id])
+        expect(json_response[:integration_type]).to eq(new_attributes[:integration_type])
+        expect(json_response[:birthday]).to eq(new_attributes[:birthday])
+        expect(json_response[:bio]).to eq(new_attributes[:bio])
+        expect(json_response).to include(*returned_attributes)
       end
     end
 

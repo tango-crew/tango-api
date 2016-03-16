@@ -49,6 +49,6 @@ class UsersController < ApplicationController
     end
 
   def user_attributes
-    [:name, :email, :integration_id, :integration_type, :birthday, :bio, :password, :password_confirmation]
+    [:name, :email, :integration_id, :integration_type, :birthday, :bio, :password, :password_confirmation, :remote_profile_image_url]
   end
 end
